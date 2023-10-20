@@ -18,7 +18,7 @@ async function validateUserBooking(userId: number) {
 }
 
 async function getHotels(userId: number) {
-  await validateUserBooking(userId);
+  // await validateUserBooking(userId);
 
   const hotels = await hotelRepository.findHotels();
   if (hotels.length === 0) throw notFoundError();
