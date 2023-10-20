@@ -4,6 +4,6 @@ import { getHotels, getHotelsWithRooms } from '@/controllers';
 
 const hotelsRouter = Router();
 
-hotelsRouter.get('/', getHotels).get('/:hotelId', getHotelsWithRooms); //.all('/*', authenticateToken)
+hotelsRouter.all('/*', authenticateToken).get('/', getHotels).get('/:hotelId', getHotelsWithRooms); //
 
 export { hotelsRouter };
