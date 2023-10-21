@@ -11,7 +11,7 @@ async function validateUserBooking(userId: number) {
   if (!ticket) throw notFoundError();
 
   const type = ticket.TicketType;
-
+ 
   if (ticket.status === TicketStatus.RESERVED) {
     throw cannotListHotelsError("Ticket not paid");
   }
