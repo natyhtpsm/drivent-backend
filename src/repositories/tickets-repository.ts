@@ -1,6 +1,7 @@
 import { TicketStatus } from '@prisma/client';
 import { prisma } from '@/config';
 import { CreateTicketParams } from '@/protocols';
+import { TicketType } from '@prisma/client';
 
 async function findTicketTypes() {
   const result = await prisma.ticketType.findMany();
@@ -24,6 +25,20 @@ async function createTicket(ticket: CreateTicketParams) {
 
   return result;
 }
+
+async function createTicketType(ticketType: TicketType) {
+  const { name, price, isRemote, includesHotel } = ticketType;
+  const result = await prisma.ticketType.create({
+    data: {
+      name,
+      price,
+      isRemote,
+      includesHotel,
+    },
+  })
+  return result;
+}
+
 
 async function findTicketById(ticketId: number) {
   const result = await prisma.ticket.findUnique({
@@ -53,4 +68,5 @@ export const ticketsRepository = {
   createTicket,
   findTicketById,
   ticketProcessPayment,
+  createTicketType,
 };
