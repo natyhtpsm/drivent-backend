@@ -2,6 +2,8 @@ import { TicketStatus } from '@prisma/client';
 import { invalidDataError, notFoundError } from '@/errors';
 import { CreateTicketParams } from '@/protocols';
 import { enrollmentRepository, ticketsRepository } from '@/repositories';
+import { TicketType } from '@prisma/client';
+
 
 async function findTicketTypes() {
   const ticketTypes = await ticketsRepository.findTicketTypes();
@@ -33,6 +35,7 @@ async function createTicket(userId: number, ticketTypeId: number) {
   const ticket = await ticketsRepository.createTicket(ticketData);
   return ticket;
 }
+
 
 export const ticketsService = {
   findTicketTypes,
