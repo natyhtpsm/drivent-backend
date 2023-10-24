@@ -42,17 +42,18 @@ model Event {
 }
 
 model Enrollment {
-  id        Int       @id @default(autoincrement())
-  name      String    @db.VarChar(255)
-  cpf       String    @db.VarChar(255)
-  birthday  DateTime
-  phone     String    @db.VarChar(255)
-  userId    Int       @unique
-  User      User      @relation(fields: [userId], references: [id])
-  Address   Address[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Ticket    Ticket?
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  cpf          String         @db.VarChar(255)
+  birthday     DateTime
+  phone        String         @db.VarChar(255)
+  userId       Int            @unique
+  User         User           @relation(fields: [userId], references: [id])
+  Address      Address[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Ticket       Ticket?
+  Reservations Reservations[]
 }
 
 model Address {
@@ -137,4 +138,23 @@ model Booking {
   roomId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Activity {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  schedule    DateTime
+  capacity    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Reservations {
+  id           Int
+  activityId   Int
+  Enrollment   Enrollment @relation(fields: [enrollmentId], references: [id])
+  enrollmentId Int        @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
