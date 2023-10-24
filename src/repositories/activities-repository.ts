@@ -5,9 +5,18 @@ async function findAll() {
 }
 
 async function findUserReservation(userId: number) {
-  return prisma.reservations.findUnique({
+  return prisma.reservations.findMany({
     where: {
       userId,
+    },
+  });
+}
+
+async function createReservation(userId: number, activityId: number) {
+  return prisma.reservations.create({
+    data: {
+      userId: userId,
+      activityId: activityId,
     },
   });
 }
@@ -15,4 +24,5 @@ async function findUserReservation(userId: number) {
 export const activityRepository = {
   findAll,
   findUserReservation,
+  createReservation,
 };

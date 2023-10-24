@@ -1,9 +1,13 @@
-import { getAllActivities, getUserReservation } from '@/controllers/activities-controller';
 import { Router } from 'express';
-// import { getDefaultEvent } from '@/controllers';
+import { getAllActivities, getUserReservation, postReservation } from '@/controllers/activities-controller';
+import { authenticateToken } from '@/middlewares';
 
 const activitiesRouter = Router();
 
-activitiesRouter.get('/', getAllActivities).get('/user', getUserReservation); // .all('/*', authenticateToken)
+activitiesRouter
+  .all('/*', authenticateToken)
+  .get('/', getAllActivities)
+  .get('/user', getUserReservation)
+  .post('/reservation', postReservation); //
 
 export { activitiesRouter };

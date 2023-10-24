@@ -15,3 +15,10 @@ export async function getUserReservation(req: AuthenticatedRequest, res: Respons
   const activity = await activitiesService.handleUserActivity(userId);
   return res.status(httpStatus.OK).send(activity);
 }
+
+export async function postReservation(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const activityId = Number(req.body.activityId);
+  const newReservation = await activitiesService.handleNewReservation(userId, activityId);
+  return res.status(httpStatus.OK).send(newReservation);
+}

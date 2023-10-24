@@ -1,4 +1,4 @@
-import { notFoundError } from '@/errors';
+import { notFoundError, unauthorizedError } from '@/errors';
 import { activityRepository } from '@/repositories';
 
 async function getActivities() {
@@ -13,7 +13,14 @@ async function handleUserActivity(userId: number) {
   return activity;
 }
 
+async function handleNewReservation(userId: number, activityId: number) {
+  const newReservation = await activityRepository.createReservation(userId, activityId);
+  if (!newReservation) throw unauthorizedError();
+  return newReservation;
+}
+
 export const activitiesService = {
   getActivities,
   handleUserActivity,
+  handleNewReservation,
 };
