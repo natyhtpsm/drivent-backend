@@ -27,7 +27,6 @@ type JWTPayload = {
 
 export async function authenticateTokenGitHub(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.header('Authorization');
-  console.log(authHeader)
   if (!authHeader) throw unauthorizedError();
 
   const token = authHeader.split(' ')[1];

@@ -4,7 +4,6 @@ import { authenticationService, SignInParams} from '@/services';
 
 export async function singInPost(req: Request, res: Response) {
   if(req.body.code) {
-    console.log(req.body.code)
   }
   const { email, password } = req.body as SignInParams;
 
@@ -15,10 +14,8 @@ export async function singInPost(req: Request, res: Response) {
 
 export async function loginGitHub(req: Request, res: Response) {
   const code = req.body.code as string;
-  console.log(code, "sapo")
   try {
     const token = await authenticationService.loginIserWithGitHub(code);
-    console.log(token)
     res.send(token)
   } catch (error) {
     console.log(error)
@@ -27,6 +24,5 @@ export async function loginGitHub(req: Request, res: Response) {
 
 export async function getGitHubProfile(req: Request, res: Response) {
   const {user} = res.locals;
-  console.log(user)
   return res.send(user)
 }

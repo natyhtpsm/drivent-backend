@@ -18,7 +18,6 @@ async function getGitHubUser(token: string) {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(response.data)
   return response.data;
 }
 
@@ -45,7 +44,6 @@ async function exchangeCodeForToken(code: string) {
         'Content-Type': 'application/json'
       }
     });
-
     const {access_token} = qs.parse(data);
     console.log(access_token)
     return Array.isArray(access_token) ? access_token.join("") : access_token
