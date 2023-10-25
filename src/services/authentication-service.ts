@@ -10,6 +10,18 @@ import dotenv from "dotenv"
 import qs from 'query-string';
 dotenv.config()
 
+
+async function getGitHubUser(token: string) {
+  const GITHUB_USER_URL = "https://api.github.com/user";
+  const response = await axios.get(GITHUB_USER_URL, {
+    headers:{
+      Authorization: `Bearer ${token}`
+    }
+  })
+  console.log(response.data)
+  return response.data;
+}
+
 async function loginIserWithGitHub(code: string) {
   
   const token = await exchangeCodeForToken(code)
@@ -89,5 +101,6 @@ type GetUserOrFailResult = Pick<User, 'id' | 'email' | 'password'>;
 
 export const authenticationService = {
   signIn,
-  loginIserWithGitHub
+  loginIserWithGitHub,
+  getGitHubUser
 };
