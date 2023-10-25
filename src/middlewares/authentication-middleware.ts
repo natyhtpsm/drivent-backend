@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { unauthorizedError } from '@/errors';
-import { authenticationRepository } from '@/repositories';
+import { authenticationRepository, userRepository } from '@/repositories';
 import {authenticationService} from "../services/authentication-service"
 import { userService } from '../services';
 import { generateRandomPassword } from '../utils/random-utils';
@@ -11,7 +11,6 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
   if (!authHeader) throw unauthorizedError();
   const token = authHeader.split(' ')[1];
   if (!token) throw unauthorizedError();
-  console.log(token)
   if(token.charAt(0) === 'g') {
 
     const session = await authenticationRepository.findSession(token);
@@ -52,6 +51,11 @@ export async function authenticateTokenGitHub(req: Request, res: Response, next:
   const session = await authenticationRepository.findSession(token);
   console.log(session)
   if (!session) {
+      const usera = await userRepository.findByEmail(userGitHub.email)
+    if(usera){
+      const update = authenticationRepository.updateSession(token, userGitHub.email)
+      return next()
+    }
     const password = generateRandomPassword(14)
     if(userGitHub.email === null) return console.log("usuário com email privado no github");
     const datauser = {
@@ -59,6 +63,7 @@ export async function authenticateTokenGitHub(req: Request, res: Response, next:
       password
     }
     const user = await userService.createUser(datauser)
+    console.log(user)
     const data = {
       token,
       userId: user.id
