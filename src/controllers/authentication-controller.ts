@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { authenticationService, SignInParams} from '@/services';
+import { userRepository } from '../repositories';
 
 export async function singInPost(req: Request, res: Response) {
   if(req.body.code) {
@@ -24,5 +25,7 @@ export async function loginGitHub(req: Request, res: Response) {
 
 export async function getGitHubProfile(req: Request, res: Response) {
   const {user} = res.locals;
-  return res.send(user)
+  const result = await userRepository.findByEmail(user.email)
+  const data = [user, result]
+  return res.send(data)
 }

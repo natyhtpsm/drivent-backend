@@ -22,8 +22,8 @@ async function getGitHubUser(token: string) {
 }
 
 async function loginIserWithGitHub(code: string) {
-  
   const token = await exchangeCodeForToken(code)
+
   return token;
 }
 
