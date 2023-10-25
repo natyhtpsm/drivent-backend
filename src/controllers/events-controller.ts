@@ -6,7 +6,6 @@ import { redis } from '@/server';
 export async function getDefaultEvent(_req: Request, res: Response) {
   const eventRedis = await redis.get('event');
   if (eventRedis) {
-    console.info('Foi pelo Redis !!!');
     return res.status(httpStatus.OK).send(JSON.parse(eventRedis));
   }
   const event = await eventsService.getFirstEvent();
