@@ -14,14 +14,17 @@ import {
   createBooking,
 } from '../factories';
 import { cleanDb, generateValidToken } from '../helpers';
-import app, { init } from '@/app';
+import app, { init } from '../../src/app';
+import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
+  await cleanDb();
+  RedisClient.connect();
 });
 
-beforeEach(async () => {
-  await cleanDb();
+afterAll(async () => {
+  RedisClient.disconnect();
 });
 
 const server = supertest(app);

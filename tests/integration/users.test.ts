@@ -4,11 +4,17 @@ import httpStatus from 'http-status';
 import supertest from 'supertest';
 import { createEvent, createUser } from '../factories';
 import { cleanDb } from '../helpers';
-import { duplicatedEmailError } from '@/errors';
-import app, { init } from '@/app';
-import { prisma } from '@/config';
+import { duplicatedEmailError } from '../../src/errors';
+import app, { init } from '../../src/app';
+import { prisma } from '../../src/config/database';
+import RedisClient from '../../src/config/redisConfig';
+
+afterAll(async () => {
+  RedisClient.disconnect();
+});
 
 beforeAll(async () => {
+  RedisClient.connect();
   await init();
   await cleanDb();
 });

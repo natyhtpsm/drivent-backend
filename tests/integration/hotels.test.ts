@@ -6,10 +6,16 @@ import { TicketStatus } from '@prisma/client';
 import { createEnrollmentWithAddress, createPayment, createTicket, createTicketType, createUser } from '../factories';
 import { cleanDb, generateValidToken } from '../helpers';
 import { createHotel, createRoomWithHotelId } from '../factories/hotels-factory';
-import app, { init } from '@/app';
+import app, { init } from '../../src/app';
+import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
+  RedisClient.connect();
+});
+
+afterAll(async () => {
+  RedisClient.disconnect();
 });
 
 beforeEach(async () => {

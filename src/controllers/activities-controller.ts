@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { eventsService } from '@/services';
-import { redis } from '@/server';
 import { activitiesService } from '@/services/activities-service';
 import { AuthenticatedRequest } from '@/middlewares';
 
