@@ -7,12 +7,18 @@ import { createEnrollmentWithAddress, createPayment, createTicket, createTicketT
 import { cleanDb, generateValidToken } from '../helpers';
 import { createHotel, createRoomWithHotelId } from '../factories/hotels-factory';
 import app, { init } from '../../src/app';
+import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
 });
 
+afterEach(async () => {
+  RedisClient.disconnect();
+});
+
 beforeEach(async () => {
+  RedisClient.connect();
   await cleanDb();
 });
 

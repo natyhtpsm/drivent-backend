@@ -15,13 +15,19 @@ import {
 } from '../factories';
 import { cleanDb, generateValidToken } from '../helpers';
 import app, { init } from '../../src/app';
+import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
+  await cleanDb();
+});
+
+afterEach(async () => {
+  RedisClient.disconnect();
 });
 
 beforeEach(async () => {
-  await cleanDb();
+  RedisClient.connect();
 });
 
 const server = supertest(app);

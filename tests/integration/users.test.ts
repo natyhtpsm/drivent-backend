@@ -7,7 +7,16 @@ import { cleanDb } from '../helpers';
 import { duplicatedEmailError } from '../../src/errors';
 import app, { init } from '../../src/app';
 import { prisma } from '../../src/config/database';
+import RedisClient from '../../src/config/redisConfig';
 
+afterEach(async () => {
+  RedisClient.disconnect();
+});
+
+beforeEach(async () => {
+  RedisClient.connect();
+  await cleanDb();
+});
 beforeAll(async () => {
   await init();
   await cleanDb();

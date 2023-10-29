@@ -14,12 +14,18 @@ import {
 import { cleanDb, generateValidToken } from '../helpers';
 import { prisma } from '../../src/config/database';
 import app, { init } from '../../src/app';
+import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
 });
 
+afterEach(async () => {
+  RedisClient.disconnect();
+});
+
 beforeEach(async () => {
+  RedisClient.connect();
   await cleanDb();
 });
 

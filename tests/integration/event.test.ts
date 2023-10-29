@@ -3,10 +3,19 @@ import supertest from 'supertest';
 import { createEvent } from '../factories';
 import { cleanDb } from '../helpers';
 import app, { init } from '../../src/app';
+import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
   await cleanDb();
+});
+
+afterEach(async () => {
+  RedisClient.disconnect();
+});
+
+beforeEach(async () => {
+  RedisClient.connect();
 });
 
 const server = supertest(app);
