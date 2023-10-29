@@ -31,9 +31,8 @@ async function paymentProcess(ticketId: number, userId: number, cardData: CardPa
     cardIssuer: cardData.issuer,
     cardLastDigits: cardData.number.toString().slice(-4),
   };
-
   const payment = await paymentsRepository.createPayment(ticketId, paymentData);
-  await ticketsRepository.ticketProcessPayment(ticketId);
+  // await ticketsRepository.ticketProcessPayment(ticketId);
   return payment;
 }
 
