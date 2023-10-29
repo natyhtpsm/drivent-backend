@@ -7,8 +7,8 @@ import supertest from 'supertest';
 
 import { createEnrollmentWithAddress, createUser, createhAddressWithCEP } from '../factories';
 import { cleanDb, generateValidToken } from '../helpers';
-import { prisma } from '@/config';
-import app, { init } from '@/app';
+import { prisma } from '../../src/config/database';
+import app, { init } from '../../src/app';
 
 beforeAll(async () => {
   await init();
