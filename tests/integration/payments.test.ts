@@ -18,14 +18,14 @@ import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
+  RedisClient.connect();
 });
 
-afterEach(async () => {
+afterAll(async () => {
   RedisClient.disconnect();
 });
 
 beforeEach(async () => {
-  RedisClient.connect();
   await cleanDb();
 });
 

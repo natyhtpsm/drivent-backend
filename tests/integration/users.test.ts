@@ -9,15 +9,12 @@ import app, { init } from '../../src/app';
 import { prisma } from '../../src/config/database';
 import RedisClient from '../../src/config/redisConfig';
 
-afterEach(async () => {
+afterAll(async () => {
   RedisClient.disconnect();
 });
 
-beforeEach(async () => {
-  RedisClient.connect();
-  await cleanDb();
-});
 beforeAll(async () => {
+  RedisClient.connect();
   await init();
   await cleanDb();
 });

@@ -8,15 +8,12 @@ import RedisClient from '../../src/config/redisConfig';
 
 beforeAll(async () => {
   await init();
+  RedisClient.connect();
   await cleanDb();
 });
 
-afterEach(async () => {
+afterAll(async () => {
   RedisClient.disconnect();
-});
-
-beforeEach(async () => {
-  RedisClient.connect();
 });
 
 const server = supertest(app);
