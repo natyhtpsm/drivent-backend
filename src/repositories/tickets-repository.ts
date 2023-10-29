@@ -1,7 +1,6 @@
-import { TicketStatus } from '@prisma/client';
+import { TicketStatus, TicketType } from '@prisma/client';
 import { prisma } from '@/config';
 import { CreateTicketParams } from '@/protocols';
-import { TicketType } from '@prisma/client';
 
 async function findTicketTypes() {
   const result = await prisma.ticketType.findMany();
@@ -35,10 +34,9 @@ async function createTicketType(ticketType: TicketType) {
       isRemote,
       includesHotel,
     },
-  })
+  });
   return result;
 }
-
 
 async function findTicketById(ticketId: number) {
   const result = await prisma.ticket.findUnique({
