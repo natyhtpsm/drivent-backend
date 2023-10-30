@@ -15,7 +15,32 @@ async function findSession(token: string) {
   });
 }
 
+async function updateSession(token: string, email: string) {
+  
+  const resu = await prisma.user.findUnique({
+    where: {
+      email
+    }
+  })
+  console.log(resu)
+  const result = await prisma.session.findFirst({
+    where: {
+      userId: resu.id
+    },
+  });
+
+  return prisma.session.update({
+    data: {
+      token
+    },
+    where: {
+      id: result.id
+    }
+  });
+}
+
 export const authenticationRepository = {
   createSession,
   findSession,
+  updateSession
 };

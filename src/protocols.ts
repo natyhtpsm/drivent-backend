@@ -1,5 +1,13 @@
 import { Booking, Payment, Ticket } from '@prisma/client';
 
+export type GitHubParamsForAccessToken = {
+  code: string;
+  grant_type: string;
+  redirect_uri: string;
+  client_id: string;
+  client_secret: string;
+}
+
 export type ApplicationError = {
   name: string;
   message: string;
