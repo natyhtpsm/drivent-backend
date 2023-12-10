@@ -1,76 +1,59 @@
-# Driven.t - Back-end
+# Driven-t - Sistema de Gerenciamento de Eventos 🚗💨
 
-Back-end for Driven.t, an event management solution.
+O Drivent é uma aplicação web para gerenciamento de eventos, oferecendo funcionalidades como: inscrições, aquisição de ingressos, reservas de hotel e muito mais. O sistema Driven-t foi criado para proporciona uma experiência otimizada tanto para organizadores quanto para participantes.
 
-## About
+## 🚀 Recursos do código
 
-Driven.t is a web browser application with which you can manage every single aspect of your event.
+- Inscrição e cadastro de usuários com verificação de CEP.
+- Sistema de compra e gerenciamento de ingressos.
+- Reservas de hotéis integrados ao evento.
+- Sistema de migração e seed para banco de dados.
+- Sistema de reserva de atividades 
+- Rotas API para gestão de ingressos, hotéis, atividades e reservas.
 
-## How to run for development
+## 🛠️ Tecnologias Utilizadas
 
-1. Clone this repository
-2. Install all dependencies
+- Node.js
+- Typescript
+- Express.js 
+- Prisma (ORM).
+- PostgreSQL. 
+- Jest para testes.
 
-```bash
-npm i
-```
+## 📚 Guia de Instalação e Uso
 
-3. Create a PostgreSQL database with whatever name you want
-4. Configure the `.env.development` file using the `.env.example` file (see "Running application locally or inside docker section" for details)
-5. Run all migrations
+1. Clone o repositório:
+   - `git clone [https://github.com/natyhtpsm/drivent-backend]`
 
-```bash
-npm run dev:migration:run
-```
+2. Instale as dependências:
+   - `npm install`
 
-6. Seed db
+3. Crie os bancos de dados locais (Postgres):
+   - `CREATE DATABASE drivent_development;`
+   - `CREATE DATABASE drivent_test;`
 
-```bash
-npm run dev:seed
-```
+4. Configure os arquivos `.env.development` e `.env.test`.
 
-6. Run the back-end in a development environment:
+5. Execute as migrações:
+   - Para desenvolvimento: `npm run dev:migration:run`
+   - Para testes: `npm run test:migration:run`
 
-```bash
-npm run dev
-```
+6. Execute o seed do banco de dados:
+   - `npm run dev:seed`
 
-## How to run tests
+7. Inicie o projeto:
+   - `npm run dev`
 
-1. Follow the steps in the last section
-2. Configure the `.env.test` file using the `.env.example` file (see "Running application locally or inside docker" section for details)
-3. Run all migrations:
+## 🌐 Rotas e Funcionalidades
 
-```bash
-npm run test:migration:run
-```
+- **GET** `/enrollments/cep`: Busca de endereço por CEP.
+- **POST** `/tickets`: Criação de ingressos.
+- **GET** `/tickets`: Listagem de ingressos do usuário.
+- **GET** `/booking`: Gerenciamento de reservas de hotel.
+- **POST** `/booking`: Criação de uma nova reserva.
+- **GET** `/hotels`: Listagem de hotéis.
+- **GET** `/hotels/:hotelId`: Detalhes dos quartos de um hotel específico.
+- **GET** `/activities`: Listagem de todas as atividades.
+- **POST** `/activities/reservation`: Criação de uma reserva para uma atividade.
+- **GET** `/activities/user`: Listagem das atividades escolhidas pelo usuário. 
 
-4. Run test:
-
-```bash
-npm run test
-```
-
-## Building and starting for production
-
-```bash
-npm run build
-npm start
-```
-
-## Running migrations or generate prisma clients
-
-Before running migrations make sure you have a postgres db running based on `.env.development` or `.env.test` file for each environment.
-
-You can operate on databases for different environments, but it is necessary to populate correct env variables for each environment first, so in order to perform db operations type the following commands:
-
-- `npm run dev:migration:run` - run migrations for development environment by loading envs from .env.development file. It uses [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme) to load envs from .env.development file.
-- `npm run test:migration:run` - the same, but for test environment.
-
-- `npm run dev:migration:generate -- --name ATOMIC_OPERATION_NAME` - generate and run migration and prisma client for development environment by loading envs from .env.development file. Replace `ATOMIC_OPERATION_NAME` by the name of the migration you want to generate.
-
-## What to do when add new ENV VARIABLES
-
-There are several things you need to do when you add new ENV VARIABLES:
-- Add them to `.env.example` file
-- Add them to your local `.env.development` and `.env.test` files
