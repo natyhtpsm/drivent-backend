@@ -58,4 +58,9 @@ O Drivent é uma aplicação web para gerenciamento de eventos, oferecendo funci
 - **POST** `/activities/reservation`: Criação de uma reserva para uma atividade.
 - **GET** `/activities/user`: Listagem das atividades escolhidas pelo usuário. 
 
+## 🚀 Demonstração
+
+Confira a aplicação em ação:
+
+[**Driven-t**](https://drivent-backend-s168.onrender.com/)
 
