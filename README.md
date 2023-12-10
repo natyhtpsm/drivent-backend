@@ -33,15 +33,16 @@ O Drivent é uma aplicação web para gerenciamento de eventos, oferecendo funci
    - `CREATE DATABASE drivent_test;`
 
 4. Configure os arquivos `.env.development` e `.env.test`.
+   - `DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/drivent_development"`    
 
-5. Execute as migrações:
+6. Execute as migrações:
    - Para desenvolvimento: `npm run dev:migration:run`
    - Para testes: `npm run test:migration:run`
 
-6. Execute o seed do banco de dados:
+7. Execute o seed do banco de dados:
    - `npm run dev:seed`
 
-7. Inicie o projeto:
+8. Inicie o projeto:
    - `npm run dev`
 
 ## 🌐 Rotas e Funcionalidades
@@ -56,4 +57,5 @@ O Drivent é uma aplicação web para gerenciamento de eventos, oferecendo funci
 - **GET** `/activities`: Listagem de todas as atividades.
 - **POST** `/activities/reservation`: Criação de uma reserva para uma atividade.
 - **GET** `/activities/user`: Listagem das atividades escolhidas pelo usuário. 
+
 
